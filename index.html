@@ -5,29 +5,56 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Murge été 2026</title>
 <style>
-:root{--green:#168b4d;--red:#d94343;--text:#172018;--muted:#6f766f;--line:#e3e6e3;--bg:#f4f6f4;--white:#fff;--shadow:0 12px 34px rgba(20,35,25,.10)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:790px;margin:auto;padding:18px 12px 28px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 14px}h1{font-size:26px;margin:0;font-weight:850;letter-spacing:-.03em}.selector{min-width:190px;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:var(--shadow)}label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:5px;font-weight:800}select{width:100%;font:inherit;font-size:17px;font-weight:800;border:0;background:white;color:var(--text);outline:0}.month{background:white;border:1px solid var(--line);border-radius:22px;margin:14px 0;overflow:hidden;box-shadow:var(--shadow)}.month-title{text-align:center;font-weight:900;font-size:20px;padding:15px 12px;border-bottom:1px solid var(--line);letter-spacing:-.02em}.weekdays,.days{display:grid;grid-template-columns:repeat(7,1fr)}.weekdays div{text-align:center;padding:9px 2px;font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--line);letter-spacing:.04em}.day{min-height:78px;background:white;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:7px;text-align:left;color:var(--text);position:relative;transition:transform .08s,background .12s}.day:nth-child(7n){border-right:0}.day:active{transform:scale(.97)}.day.empty{background:#fafbfa}.date{font-size:14px;font-weight:850}.count{position:absolute;right:7px;top:7px;font-size:11px;color:var(--muted);font-weight:800}.mini{position:absolute;left:7px;right:7px;bottom:7px;display:flex;gap:3px;flex-wrap:wrap}.dot{width:17px;height:17px;border-radius:999px;background:var(--green);color:white;font-size:8px;display:grid;place-items:center;font-weight:900}.bad{background:var(--red)}.filled .date,.filled .count{color:white!important}.filled .dot{border:1px solid rgba(255,255,255,.95)}@media(max-width:560px){.wrap{padding:12px 7px 20px}header{display:block}h1{text-align:center;font-size:23px;margin-bottom:10px}.selector{min-width:0;width:100%;border-radius:14px}.month{border-radius:16px;margin:11px 0}.month-title{font-size:18px;padding:12px}.weekdays div{font-size:10px;padding:7px 1px}.day{min-height:60px;padding:5px}.date{font-size:12px}.count{font-size:10px;right:5px;top:5px}.mini{left:5px;right:5px;bottom:5px}.dot{width:12px;height:12px;font-size:7px}}
+:root{--green:#168b4d;--red:#d94343;--text:#172018;--muted:#6f766f;--line:#e3e6e3;--bg:#f4f6f4;--white:#fff;--shadow:0 12px 34px rgba(20,35,25,.10)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:790px;margin:auto;padding:18px 12px 28px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 14px}h1{font-size:26px;margin:0;font-weight:850;letter-spacing:-.03em}.selector{min-width:190px;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:var(--shadow)}label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:5px;font-weight:800}select{width:100%;font:inherit;font-size:17px;font-weight:800;border:0;background:white;color:var(--text);outline:0}.sync{font-size:11px;color:var(--muted);font-weight:800;margin-top:5px}.month{background:white;border:1px solid var(--line);border-radius:22px;margin:14px 0;overflow:hidden;box-shadow:var(--shadow)}.month-title{text-align:center;font-weight:900;font-size:20px;padding:15px 12px;border-bottom:1px solid var(--line);letter-spacing:-.02em}.weekdays,.days{display:grid;grid-template-columns:repeat(7,1fr)}.weekdays div{text-align:center;padding:9px 2px;font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--line);letter-spacing:.04em}.day{min-height:78px;background:white;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:7px;text-align:left;color:var(--text);position:relative;transition:transform .08s,background .12s}.day:nth-child(7n){border-right:0}.day:active{transform:scale(.97)}.day.empty{background:#fafbfa}.date{font-size:14px;font-weight:850}.count{position:absolute;right:7px;top:7px;font-size:11px;color:var(--muted);font-weight:800}.mini{position:absolute;left:7px;right:7px;bottom:7px;display:flex;gap:3px;flex-wrap:wrap}.dot{width:17px;height:17px;border-radius:999px;background:var(--green);color:white;font-size:8px;display:grid;place-items:center;font-weight:900}.bad{background:var(--red)}.filled .date,.filled .count{color:white!important}.filled .dot{border:1px solid rgba(255,255,255,.95)}@media(max-width:560px){.wrap{padding:12px 7px 20px}header{display:block}h1{text-align:center;font-size:23px;margin-bottom:10px}.selector{min-width:0;width:100%;border-radius:14px}.month{border-radius:16px;margin:11px 0}.month-title{font-size:18px;padding:12px}.weekdays div{font-size:10px;padding:7px 1px}.day{min-height:60px;padding:5px}.date{font-size:12px}.count{font-size:10px;right:5px;top:5px}.mini{left:5px;right:5px;bottom:5px}.dot{width:12px;height:12px;font-size:7px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><h1>Murge été 2026</h1><div class="selector"><label for="person">Participant</label><select id="person"></select></div></header>
+<header><h1>Murge été 2026</h1><div class="selector"><label for="person">Participant</label><select id="person"></select><div id="sync" class="sync">Connexion…</div></div></header>
 <div id="calendar"></div>
 </div>
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, doc, onSnapshot, setDoc, updateDoc, serverTimestamp, FieldPath, deleteField } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAhKLejSPv1MIITc8JDiQ12IT76huMhbhA",
+  authDomain: "murge-ete-2026.firebaseapp.com",
+  projectId: "murge-ete-2026",
+  storageBucket: "murge-ete-2026.firebasestorage.app",
+  messagingSenderId: "944961929539",
+  appId: "1:944961929539:web:7b1c4bea43ccbbeb086ff6",
+  measurementId: "G-QVZZ2NDQCY"
+};
+
 const PEOPLE=['Armand','Alex','Tanguy','Jerem','Jimi','Brice','Thomas'];
 const YEAR=2026,MONTHS=[6,7];
 const GREEN='#168b4d',RED='#d94343';
 let current=localStorage.getItem('person')||PEOPLE[0];
-let data=JSON.parse(localStorage.getItem('calendar-v9')||'{}');
-const person=document.getElementById('person'),calendar=document.getElementById('calendar');
+let data={};
+let docReady=false;
+const person=document.getElementById('person'),calendar=document.getElementById('calendar'),sync=document.getElementById('sync');
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+const calendarRef=doc(db,'calendars','murge-ete-2026');
+
 PEOPLE.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;person.appendChild(o)});person.value=current;
 person.onchange=()=>{current=person.value;localStorage.setItem('person',current);render()};
+
 function pad(n){return String(n).padStart(2,'0')}function key(y,m,d){return y+'-'+pad(m+1)+'-'+pad(d)}function initials(n){return n.slice(0,2).toUpperCase()}function monthName(m){return new Date(YEAR,m,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'})}
 function nextState(value){if(value==='yes')return 'no';if(value==='no')return undefined;return 'yes'}
+function setSync(text){sync.textContent=text}
+
 function build(){calendar.innerHTML='';MONTHS.forEach(m=>{const box=document.createElement('section');box.className='month';box.innerHTML='<div class="month-title">'+monthName(m)+'</div><div class="weekdays"><div>Lun</div><div>Mar</div><div>Mer</div><div>Jeu</div><div>Ven</div><div>Sam</div><div>Dim</div></div><div class="days"></div>';const days=box.querySelector('.days');const first=new Date(YEAR,m,1),last=new Date(YEAR,m+1,0),offset=(first.getDay()+6)%7;for(let i=0;i<offset;i++){const e=document.createElement('div');e.className='day empty';days.appendChild(e)}for(let d=1;d<=last.getDate();d++){const e=document.createElement('button');e.className='day';e.dataset.key=key(YEAR,m,d);e.onclick=()=>cycleDay(e.dataset.key);days.appendChild(e)}calendar.appendChild(box)});render()}
-function cycleDay(k){data[k] ||= {};const n=nextState(data[k][current]);if(n)data[k][current]=n;else delete data[k][current];localStorage.setItem('calendar-v9',JSON.stringify(data));render()}
+
+async function ensureDoc(){if(docReady)return;await setDoc(calendarRef,{title:'Murge été 2026',days:{},updatedAt:serverTimestamp()},{merge:true});docReady=true}
+
+async function cycleDay(k){data[k] ||= {};const n=nextState(data[k][current]);if(n)data[k][current]=n;else{delete data[k][current];if(Object.keys(data[k]).length===0)delete data[k]}render();setSync('Enregistrement…');try{await ensureDoc();const field=new FieldPath('days',k,current);if(n)await updateDoc(calendarRef,field,n,'updatedAt',serverTimestamp());else await updateDoc(calendarRef,field,deleteField(),'updatedAt',serverTimestamp());setSync('Synchronisé')}catch(e){console.error(e);setSync('Erreur de sync')}}
+
 function render(){document.querySelectorAll('.day[data-key]').forEach(e=>{const k=e.dataset.key,d=data[k]||{};const yes=Object.entries(d).filter(x=>x[1]==='yes').map(x=>x[0]);const no=Object.entries(d).filter(x=>x[1]==='no').map(x=>x[0]);e.className='day';e.removeAttribute('style');if(d[current]==='yes'){e.classList.add('filled');e.style.cssText='background:'+GREEN+' !important;color:white !important'}if(d[current]==='no'){e.classList.add('filled');e.style.cssText='background:'+RED+' !important;color:white !important'}e.innerHTML='<div class="date">'+Number(k.slice(-2))+'</div><div class="count">'+yes.length+'/'+PEOPLE.length+'</div><div class="mini">'+yes.map(n=>'<span class="dot">'+initials(n)+'</span>').join('')+no.map(n=>'<span class="dot bad">'+initials(n)+'</span>').join('')+'</div>'})}
+
 build();
+onSnapshot(calendarRef,(snap)=>{docReady=snap.exists();data=snap.exists()?(snap.data().days||{}):{};render();setSync('Synchronisé')},(err)=>{console.error(err);setSync('Erreur Firebase')});
 </script>
 </body>
 </html>
