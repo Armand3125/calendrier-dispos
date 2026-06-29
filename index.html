@@ -1,1 +1,570 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Dispos amis — Juillet / Août</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#111c34;
+      --card2:#16223d;
+      --text:#f8fafc;
+      --muted:#94a3b8;
+      --line:rgba(255,255,255,.10);
+      --green:#22c55e;
+      --orange:#f59e0b;
+      --red:#ef4444;
+      --blue:#38bdf8;
+      --purple:#a78bfa;
+      --shadow:0 20px 60px rgba(0,0,0,.30);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.25), transparent 28rem),
+        radial-gradient(circle at bottom right, rgba(167,139,250,.22), transparent 30rem),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+    .wrap{
+      width:min(1100px,100%);
+      margin:auto;
+      padding:20px;
+      padding-bottom:90px;
+    }
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:18px;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(26px,6vw,44px);
+      letter-spacing:-.04em;
+      line-height:1;
+    }
+    .sub{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.4;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+      margin-bottom:16px;
+      backdrop-filter:blur(14px);
+    }
+    .toolbar{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:end;
+    }
+    label{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:7px;
+    }
+    input,select,button{
+      font:inherit;
+    }
+    input,select{
+      width:100%;
+      color:var(--text);
+      background:rgba(15,23,42,.75);
+      border:1px solid var(--line);
+      border-radius:15px;
+      padding:13px 14px;
+      outline:none;
+    }
+    input:focus,select:focus{border-color:rgba(56,189,248,.75)}
+    button{
+      border:0;
+      cursor:pointer;
+      color:#06121f;
+      background:linear-gradient(135deg,var(--blue),#7dd3fc);
+      border-radius:15px;
+      padding:13px 16px;
+      font-weight:800;
+      min-height:48px;
+    }
+    button.secondary{
+      color:var(--text);
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--line);
+    }
+    button.danger{
+      color:white;
+      background:rgba(239,68,68,.18);
+      border:1px solid rgba(239,68,68,.35);
+    }
+    .legend{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:12px;
+    }
+    .legend span{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      color:var(--muted);
+      font-size:13px;
+      padding:7px 9px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+    }
+    .dot{width:10px;height:10px;border-radius:50%}
+    .monthTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin:22px 4px 10px;
+      color:var(--text);
+      font-weight:900;
+      font-size:20px;
+      letter-spacing:-.02em;
+    }
+    .calendar{
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:8px;
+    }
+    .dow{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      text-transform:uppercase;
+      padding:4px 0;
+    }
+    .day{
+      min-height:78px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.045);
+      padding:9px;
+      position:relative;
+      overflow:hidden;
+      transition:.15s transform,.15s border-color,.15s background;
+      user-select:none;
+    }
+    .day:active{transform:scale(.97)}
+    .day.mine-yes{
+      border-color:rgba(34,197,94,.65);
+      background:linear-gradient(180deg, rgba(34,197,94,.28), rgba(255,255,255,.04));
+    }
+    .day.mine-maybe{
+      border-color:rgba(245,158,11,.70);
+      background:linear-gradient(180deg, rgba(245,158,11,.24), rgba(255,255,255,.04));
+    }
+    .day.mine-no{
+      border-color:rgba(239,68,68,.55);
+      background:linear-gradient(180deg, rgba(239,68,68,.18), rgba(255,255,255,.04));
+    }
+    .num{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:4px;
+      font-weight:900;
+      font-size:16px;
+      margin-bottom:8px;
+    }
+    .score{
+      color:var(--muted);
+      font-size:11px;
+      font-weight:700;
+    }
+    .names{
+      display:flex;
+      flex-wrap:wrap;
+      gap:3px;
+    }
+    .avatar{
+      width:18px;height:18px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-size:10px;
+      font-weight:900;
+      color:#06121f;
+      background:var(--green);
+    }
+    .avatar.maybe{background:var(--orange)}
+    .empty{opacity:.35}
+    .best{
+      border-color:rgba(34,197,94,.85);
+      box-shadow:0 0 0 2px rgba(34,197,94,.12) inset;
+    }
+    .summary{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      gap:10px;
+    }
+    .summaryItem{
+      background:rgba(15,23,42,.65);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+    }
+    .summaryItem strong{display:block;font-size:16px;margin-bottom:4px}
+    .summaryItem small{color:var(--muted)}
+    .bottomBar{
+      position:fixed;
+      left:0;right:0;bottom:0;
+      padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+      background:rgba(15,23,42,.86);
+      backdrop-filter:blur(16px);
+      border-top:1px solid var(--line);
+      z-index:20;
+    }
+    .statusGrid{
+      width:min(900px,100%);
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+    }
+    .statusBtn{
+      color:var(--text);
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--line);
+      padding:11px 8px;
+      min-height:44px;
+      font-weight:800;
+      border-radius:14px;
+    }
+    .statusBtn.active[data-status="yes"]{background:rgba(34,197,94,.25);border-color:rgba(34,197,94,.75)}
+    .statusBtn.active[data-status="maybe"]{background:rgba(245,158,11,.25);border-color:rgba(245,158,11,.75)}
+    .statusBtn.active[data-status="no"]{background:rgba(239,68,68,.25);border-color:rgba(239,68,68,.75)}
+    .muted{color:var(--muted)}
+    .hidden{display:none!important}
+    .config{
+      background:rgba(239,68,68,.08);
+      border-color:rgba(239,68,68,.28);
+    }
+    code{
+      background:rgba(255,255,255,.08);
+      padding:2px 5px;
+      border-radius:7px;
+    }
+    @media(max-width:680px){
+      .wrap{padding:14px;padding-bottom:92px}
+      header{display:block}
+      .pill{margin-top:12px}
+      .toolbar{grid-template-columns:1fr}
+      .calendar{gap:6px}
+      .day{min-height:68px;border-radius:15px;padding:7px}
+      .num{font-size:14px}
+      .score{font-size:10px}
+      .avatar{width:16px;height:16px;font-size:9px}
+      .statusGrid{grid-template-columns:repeat(4,1fr)}
+      .statusBtn{font-size:13px;padding:10px 4px}
+    }
+  </style>
+</head>
 
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Dispos Juillet / Août</h1>
+        <p class="sub">Choisis ton nom, puis touche les jours pour indiquer tes disponibilités. Tout le monde voit les mises à jour en direct.</p>
+      </div>
+      <div class="pill" id="syncState">● Connexion…</div>
+    </header>
+
+    <section id="configWarning" class="card config hidden">
+      <strong>Configuration Firebase nécessaire</strong>
+      <p class="muted">
+        Pour que les disponibilités soient partagées entre tous, remplace le bloc
+        <code>firebaseConfig</code> dans le fichier HTML par celui de ton projet Firebase.
+        Sans ça, l'appli ne peut pas sauvegarder les données en ligne.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="toolbar">
+        <div>
+          <label for="nameInput">Ton prénom</label>
+          <input id="nameInput" placeholder="Ex : Armand" autocomplete="name" />
+        </div>
+        <button id="saveNameBtn">Valider</button>
+      </div>
+
+      <div class="legend">
+        <span><i class="dot" style="background:var(--green)"></i>Dispo</span>
+        <span><i class="dot" style="background:var(--orange)"></i>Peut-être</span>
+        <span><i class="dot" style="background:var(--red)"></i>Pas dispo</span>
+        <span><i class="dot" style="background:var(--blue)"></i>Les ronds = amis dispos</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 12px;font-size:20px">Meilleurs jours</h2>
+      <div id="summary" class="summary"></div>
+    </section>
+
+    <main id="calendars"></main>
+  </div>
+
+  <nav class="bottomBar">
+    <div class="statusGrid">
+      <button class="statusBtn active" data-status="yes">✅ Dispo</button>
+      <button class="statusBtn" data-status="maybe">🟠 Peut-être</button>
+      <button class="statusBtn" data-status="no">❌ Pas dispo</button>
+      <button class="statusBtn" data-status="clear">Effacer</button>
+    </div>
+  </nav>
+
+  <script type="module">
+    /*
+      ÉTAPE À FAIRE :
+      1) Va sur https://console.firebase.google.com
+      2) Crée un projet
+      3) Active Firestore Database en mode test
+      4) Crée une application Web
+      5) Copie/colle ta config ici
+    */
+    const firebaseConfig = {
+      apiKey: "COLLE_TA_CLE_ICI",
+      authDomain: "TON_PROJET.firebaseapp.com",
+      projectId: "TON_PROJET",
+      storageBucket: "TON_PROJET.appspot.com",
+      messagingSenderId: "000000000000",
+      appId: "1:000000000000:web:0000000000000000000000"
+    };
+
+    const EVENT_ID = "vacances-juillet-aout-2026";
+    const YEAR = 2026;
+    const MONTHS = [6,7]; // juillet=6, août=7 en JS
+    const COLORS = ["#22c55e","#38bdf8","#a78bfa","#f472b6","#f59e0b","#14b8a6","#eab308","#fb7185"];
+
+    let db = null;
+    let selectedStatus = "yes";
+    let currentName = localStorage.getItem("dispo_name") || "";
+    let allData = {};
+    let unsubscribe = null;
+
+    const $ = sel => document.querySelector(sel);
+    const calendars = $("#calendars");
+    const summary = $("#summary");
+    const nameInput = $("#nameInput");
+    const syncState = $("#syncState");
+    const configWarning = $("#configWarning");
+
+    nameInput.value = currentName;
+
+    function isConfigured(){
+      return !firebaseConfig.apiKey.includes("COLLE") && !firebaseConfig.projectId.includes("TON_PROJET");
+    }
+
+    function pad(n){ return String(n).padStart(2,"0"); }
+    function dateKey(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+    function prettyDate(key){
+      const d = new Date(key + "T12:00:00");
+      return d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+    }
+    function initials(name){
+      return name.trim().split(/\s+/).slice(0,2).map(x=>x[0]?.toUpperCase()).join("") || "?";
+    }
+    function colorFor(name){
+      let h=0;
+      for(let i=0;i<name.length;i++) h = (h*31 + name.charCodeAt(i)) >>> 0;
+      return COLORS[h % COLORS.length];
+    }
+
+    function setSync(text, color="var(--muted)"){
+      syncState.textContent = text;
+      syncState.style.color = color;
+    }
+
+    function monthName(monthIndex){
+      return new Date(YEAR, monthIndex, 1).toLocaleDateString("fr-FR",{month:"long",year:"numeric"});
+    }
+
+    function buildCalendar(){
+      calendars.innerHTML = "";
+      MONTHS.forEach(month => {
+        const title = document.createElement("div");
+        title.className = "monthTitle";
+        title.innerHTML = `<span>${monthName(month)}</span><span class="muted">Touchez un jour</span>`;
+        calendars.appendChild(title);
+
+        const grid = document.createElement("section");
+        grid.className = "calendar card";
+        ["lun","mar","mer","jeu","ven","sam","dim"].forEach(d => {
+          const el = document.createElement("div");
+          el.className = "dow";
+          el.textContent = d;
+          grid.appendChild(el);
+        });
+
+        const first = new Date(YEAR, month, 1);
+        const last = new Date(YEAR, month + 1, 0);
+        const offset = (first.getDay() + 6) % 7;
+
+        for(let i=0;i<offset;i++){
+          const empty = document.createElement("div");
+          empty.className = "day empty";
+          grid.appendChild(empty);
+        }
+
+        for(let day=1; day<=last.getDate(); day++){
+          const d = new Date(YEAR, month, day);
+          const key = dateKey(d);
+          const el = document.createElement("button");
+          el.type = "button";
+          el.className = "day";
+          el.dataset.date = key;
+          el.addEventListener("click", () => updateMyStatus(key));
+          grid.appendChild(el);
+        }
+
+        calendars.appendChild(grid);
+      });
+      render();
+    }
+
+    function render(){
+      const counts = {};
+      document.querySelectorAll(".day[data-date]").forEach(el => {
+        const key = el.dataset.date;
+        const dayData = allData[key] || {};
+        const yes = Object.entries(dayData).filter(([_,s]) => s === "yes").map(([n]) => n);
+        const maybe = Object.entries(dayData).filter(([_,s]) => s === "maybe").map(([n]) => n);
+        counts[key] = yes.length;
+
+        const mine = currentName ? dayData[currentName] : null;
+        el.className = "day";
+        if(mine) el.classList.add(`mine-${mine}`);
+
+        el.innerHTML = `
+          <div class="num">
+            <span>${Number(key.slice(-2))}</span>
+            <span class="score">${yes.length} dispo</span>
+          </div>
+          <div class="names">
+            ${yes.slice(0,8).map(n => `<span class="avatar" title="${n}" style="background:${colorFor(n)}">${initials(n)}</span>`).join("")}
+            ${maybe.slice(0,4).map(n => `<span class="avatar maybe" title="${n} peut-être">${initials(n)}</span>`).join("")}
+          </div>
+        `;
+      });
+
+      const max = Math.max(0, ...Object.values(counts));
+      document.querySelectorAll(".day[data-date]").forEach(el => {
+        if(max > 0 && counts[el.dataset.date] === max) el.classList.add("best");
+      });
+
+      const best = Object.entries(counts)
+        .filter(([_,c]) => c > 0)
+        .sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0]))
+        .slice(0,6);
+
+      summary.innerHTML = best.length ? best.map(([key,c]) => {
+        const names = Object.entries(allData[key] || {}).filter(([_,s]) => s === "yes").map(([n]) => n).join(", ");
+        return `<div class="summaryItem"><strong>${prettyDate(key)}</strong><small>${c} dispo — ${names}</small></div>`;
+      }).join("") : `<div class="summaryItem"><strong>Aucune dispo pour le moment</strong><small>Remplis une première date pour lancer le calendrier.</small></div>`;
+    }
+
+    async function updateMyStatus(key){
+      if(!currentName){
+        alert("Entre d'abord ton prénom.");
+        nameInput.focus();
+        return;
+      }
+      if(!db){
+        const local = JSON.parse(localStorage.getItem("dispo_local") || "{}");
+        local[key] ||= {};
+        if(selectedStatus === "clear") delete local[key][currentName];
+        else local[key][currentName] = selectedStatus;
+        allData = local;
+        localStorage.setItem("dispo_local", JSON.stringify(local));
+        render();
+        return;
+      }
+
+      const { doc, setDoc, deleteField } = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js");
+      const ref = doc(db, "sharedCalendars", EVENT_ID);
+      await setDoc(ref, {
+        [key + "." + currentName]: selectedStatus === "clear" ? deleteField() : selectedStatus
+      }, { merge:true });
+    }
+
+    $("#saveNameBtn").addEventListener("click", () => {
+      currentName = nameInput.value.trim();
+      if(!currentName) return alert("Indique ton prénom.");
+      localStorage.setItem("dispo_name", currentName);
+      render();
+    });
+
+    document.querySelectorAll(".statusBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        selectedStatus = btn.dataset.status;
+        document.querySelectorAll(".statusBtn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+
+    async function init(){
+      buildCalendar();
+
+      if(!isConfigured()){
+        configWarning.classList.remove("hidden");
+        setSync("● Mode local", "var(--orange)");
+        allData = JSON.parse(localStorage.getItem("dispo_local") || "{}");
+        render();
+        return;
+      }
+
+      try{
+        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js");
+        const { getFirestore, doc, onSnapshot } = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js");
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        const ref = doc(db, "sharedCalendars", EVENT_ID);
+        unsubscribe = onSnapshot(ref, snap => {
+          allData = snap.exists() ? snap.data() : {};
+          setSync("● Synchronisé", "var(--green)");
+          render();
+        }, err => {
+          console.error(err);
+          setSync("● Erreur sync", "var(--red)");
+        });
+      }catch(e){
+        console.error(e);
+        configWarning.classList.remove("hidden");
+        setSync("● Mode local", "var(--orange)");
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
